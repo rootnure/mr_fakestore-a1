@@ -202,10 +202,15 @@
                 </div>
             </section>
             <!-- trending now -->
-            <section class="py-16 max-w-7xl mx-auto">
+            <section class="px-4 md:px-0 py-16 max-w-7xl mx-auto">
                 <h1 class="text-4xl font-bold py-4 mb-4">Trending Now</h1>
-                <div id="top-items" class="grid grid-cols-3 gap-x-4">
-                    <div class="card bg-base-100 w-96 shadow-sm">
+                <div
+                    id="top-items"
+                    class="grid grid-cols-1 md:grid-cols-3 md:gap-x-4 gap-y-4 md:gap-y-0"
+                >
+                    <div
+                        class="card bg-base-100 md:w-96 shadow-sm border-1 border-gray-100"
+                    >
                         <figure class="bg-gray-200">
                             <img
                                 class="max-h-80 py-4"
@@ -237,11 +242,13 @@
                             </div>
                             <div class="card-actions justify-between">
                                 <button
-                                    class="btn btn-outline btn-primary flex-1"
+                                    class="btn btn-outline flex-1 rounded-lg shadow-md border-2 border-gray-200 text-gray-500"
                                 >
                                     <i class="fa-regular fa-eye"></i> Details
                                 </button>
-                                <button class="btn btn-primary flex-1">
+                                <button
+                                    class="btn btn-primary flex-1 rounded-lg"
+                                >
                                     <i class="fa-solid fa-cart-shopping"></i>
                                     Add
                                 </button>
