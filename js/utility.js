@@ -1,6 +1,6 @@
 const skeletonContainer = document.getElementById("skeleton");
 const productsContainer = document.getElementById("products");
-const productDetails = document.getElementById("product-details-modal");
+const productDetailsModal = document.getElementById("product-details-modal");
 if (skeletonContainer) skeletonContainer.classList.add("hidden");
 
 const loadCategories = async () => {
@@ -134,6 +134,15 @@ const loadSkeleton = () => {
 loadSkeleton();
 
 const loadModal = async (id) => {
+    productDetailsModal.innerHTML = `
+    <div class="flex w-full gap-4 flex-col-reverse">
+        <div class="flex items-center gap-4">
+            <div class="skeleton h-4 w-20"></div>
+            <div class="skeleton h-4 w-28"></div>
+            <p class="skeleton w-8 text-xl"></p>
+        </div>
+        <div class="skeleton btn h-32 w-full"></div>
+    </div>`;
     my_modal_5.showModal();
     const url = `https://fakestoreapi.com/products/${id}`;
     const res = await fetch(url);
@@ -142,7 +151,6 @@ const loadModal = async (id) => {
 };
 
 const showModal = (product = {}) => {
-    productDetails.innerHTML = "";
     const { id, title, price, description, category, image, rating } = product;
     const productDetailsDiv = document.createElement("div");
     productDetailsDiv.innerHTML = `
@@ -184,5 +192,5 @@ const showModal = (product = {}) => {
             </button>
         </div>
     </div>`;
-    productDetails.innerHTML = productDetailsDiv.innerHTML;
+    productDetailsModal.innerHTML = productDetailsDiv.innerHTML;
 };
