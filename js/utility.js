@@ -1,5 +1,6 @@
 const skeletonContainer = document.getElementById("skeleton");
 const productsContainer = document.getElementById("products");
+const productDetails = document.getElementById("product-details-modal");
 if (skeletonContainer) skeletonContainer.classList.add("hidden");
 
 const loadCategories = async () => {
@@ -84,7 +85,7 @@ const showProducts = (products = []) => {
                     <p class="font-bold text-xl">$${price.toFixed(2)}</p>
                 </div>
                 <div class="card-actions justify-between">
-                    <button class="btn btn-outline flex-1 rounded-lg shadow-md border-2 border-gray-200 text-gray-500">
+                    <button class="btn btn-outline flex-1 rounded-lg shadow-md border-2 border-gray-200 text-gray-500" onclick="loadModal(${id})">
                         <i class="fa-regular fa-eye"></i> Details
                     </button>
                     <button class="btn btn-primary flex-1 rounded-lg">
@@ -131,3 +132,57 @@ const loadSkeleton = () => {
     }
 };
 loadSkeleton();
+
+const loadModal = async (id) => {
+    my_modal_5.showModal();
+    const url = `https://fakestoreapi.com/products/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    showModal(data);
+};
+
+const showModal = (product = {}) => {
+    productDetails.innerHTML = "";
+    const { id, title, price, description, category, image, rating } = product;
+    const productDetailsDiv = document.createElement("div");
+    productDetailsDiv.innerHTML = `
+    <figure class="bg-gray-200 h-80">
+        <img
+            class="max-w-full max-h-full p-4"
+            src="${image}"
+            alt="${title}"
+        />
+    </figure>
+    <div class="card-body px-4">
+        <div class="flex justify-between">
+            <div
+                class="bg-[#e1e8ff] text-[#4f39f6] capitalize rounded-xl font-bold px-3 py-0.5 w-max text-xs"
+            >
+                ${category}
+            </div>
+            <div>
+                <span class="text-yellow-500">
+                    <i class="fa-solid fa-star"></i>
+                </span>
+                <span
+                    class="text-gray-400 font-semibold"
+                    >${rating.rate} (${rating.count})</span
+                >
+            </div>
+        </div>
+        <h2 class="card-title pt-4" title="${title}">${title}</h2>
+        <p class="description">${description}</p>
+        <div>
+            <p class="font-bold text-xl">$${price}</p>
+        </div>
+        <div class="card-actions justify-between">
+            <button
+                class="btn btn-primary flex-1 rounded-lg"
+            >
+                <i class="fa-solid fa-cart-shopping"></i
+                >Add to Cart
+            </button>
+        </div>
+    </div>`;
+    productDetails.innerHTML = productDetailsDiv.innerHTML;
+};

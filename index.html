@@ -142,7 +142,9 @@
                     <div
                         class="mt-8 p-3 md:p-0 md:pt-12 grid md:grid-cols-4 gap-x-4 gap-y-16 md:gap-y-0"
                     >
-                        <div class="service relative">
+                        <div
+                            class="service relative hover:scale-[1.05] transition-transform"
+                        >
                             <div
                                 class="icon p-3 rounded-lg border-4 border-white bg-[#eef2ff] w-max text-3xl absolute -top-8 left-4 text-[#4f39f6] shadow-lg"
                             >
@@ -156,7 +158,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="service relative">
+                        <div
+                            class="service relative hover:scale-[1.05] transition-transform"
+                        >
                             <div
                                 class="icon p-3 rounded-lg border-4 border-white bg-[#eef2ff] w-max text-3xl absolute -top-8 left-4 text-[#4f39f6] shadow-lg"
                             >
@@ -170,7 +174,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="service relative">
+                        <div
+                            class="service relative hover:scale-[1.05] transition-transform"
+                        >
                             <div
                                 class="icon p-3 rounded-lg border-4 border-white bg-[#eef2ff] w-max text-3xl absolute -top-8 left-4 text-[#4f39f6] shadow-lg"
                             >
@@ -186,7 +192,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="service relative">
+                        <div
+                            class="service relative hover:scale-[1.05] transition-transform"
+                        >
                             <div
                                 class="icon p-3 rounded-lg border-4 border-white bg-[#eef2ff] w-max text-3xl absolute -top-8 left-4 text-[#4f39f6] shadow-lg"
                             >
@@ -218,6 +226,31 @@
                 class="col-span-full grid grid-cols-4 my-8 gap-4 max-w-7xl mx-auto"
                 id="skeleton"
             ></section>
+
+            <!-- product details modal -->
+            <section>
+                <dialog
+                    id="my_modal_5"
+                    class="modal modal-bottom sm:modal-middle"
+                >
+                    <div class="modal-box">
+                        <div class="modal-action mb-4">
+                            <form method="dialog">
+                                <button
+                                    class="btn rounded-full text-red-500 hover:text-white hover:bg-red-500 border-red-400"
+                                    title="Close"
+                                >
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div
+                            class="card bg-base-100 shadow-sm border-1 border-gray-100 z-0 hover:z-10 transition-transform hover:shadow-xl hover:border-gray-200"
+                            id="product-details-modal"
+                        ></div>
+                    </div>
+                </dialog>
+            </section>
         </main>
 
         <!-- footer -->
