@@ -1,3 +1,6 @@
+const skeletonContainer = document.getElementById("skeleton");
+const productsContainer = document.getElementById("products");
+
 const loadCategories = async () => {
     const url = "https://fakestoreapi.com/products/categories";
     const res = await fetch(url);
@@ -34,25 +37,26 @@ const showActiveCategory = (clickedBtn = null) => {
 };
 
 const loadProducts = async (category = "", clickedBtn) => {
+    productsContainer.innerHTML = "";
+    if (skeletonContainer) skeletonContainer.classList.remove("hidden");
     showActiveCategory(clickedBtn);
     let url;
     if (!category) url = "https://fakestoreapi.com/products";
     else url = `https://fakestoreapi.com/products/category/${category}`;
     const res = await fetch(url);
     const data = await res.json();
+    if (skeletonContainer) skeletonContainer.classList.add("hidden");
     showProducts(data);
 };
 loadProducts();
 
 const showProducts = (products = []) => {
-    const productsContainer = document.getElementById("products");
-    productsContainer.innerHTML = "";
     products.forEach((product) => {
         const { id, title, price, description, category, image, rating } =
             product || {};
         const productDiv = document.createElement("div");
         productDiv.innerHTML = `
-        <div class="card bg-base-100 shadow-sm border-1 border-gray-100">
+        <div class="card bg-base-100 shadow-sm border-1 border-gray-100 hover:scale-[1.05] z-0 hover:z-10 transition-transform hover:shadow-xl hover:border-gray-200">
             <figure class="bg-gray-200 h-80">
                 <img class="max-w-full max-h-full p-4" src="${image}" alt="${title}" />
             </figure>
@@ -85,3 +89,24 @@ const showProducts = (products = []) => {
         productsContainer.appendChild(productDiv);
     });
 };
+
+const loadSkeleton = () => {
+    if (skeletonContainer) {
+        for (let i = 0; i < 4; i++) {
+            const skeletonDiv = document.createElement("div");
+            skeletonDiv.innerHTML = `
+            <div class="flex w-full gap-4 flex-col-reverse">
+                <div class="flex items-center gap-4">
+                    <div class="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                    <div class="flex flex-col gap-4">
+                        <div class="skeleton h-4 w-20"></div>
+                        <div class="skeleton h-4 w-28"></div>
+                    </div>
+                </div>
+                <div class="skeleton h-32 w-full"></div>
+            </div>`;
+            skeletonContainer.appendChild(skeletonDiv);
+        }
+    }
+};
+loadSkeleton();
