@@ -8,24 +8,36 @@ loadCategories();
 
 const showCategories = (categories = []) => {
     const categoriesContainer = document.getElementById("categories");
-    categoriesContainer.innerHTML = `<button onclick=loadProducts() class="capitalize rounded-full btn btn-primary">all</button>`;
+    categoriesContainer.innerHTML = `<button onclick="loadProducts('', this)" class="capitalize rounded-full btn btn-primary category-btn">all</button>`;
     categories.forEach((category = "") => {
         const categoryBtn = document.createElement("button");
-        categoryBtn.setAttribute("onclick", `loadProducts("${category}")`);
+        categoryBtn.setAttribute(
+            "onclick",
+            `loadProducts("${category}", this)`,
+        );
         categoryBtn.setAttribute(
             "class",
-            "capitalize rounded-full btn btn-outline btn-primary",
+            "capitalize rounded-full btn btn-outline btn-primary category-btn",
         );
         categoryBtn.innerText = category;
         categoriesContainer.appendChild(categoryBtn);
     });
 };
 
-const loadProducts = async (category = "") => {
+const showActiveCategory = (clickedBtn = null) => {
+    const categoryBtns = document.querySelectorAll("#categories>.category-btn");
+    categoryBtns.forEach((btn) => {
+        if (!btn.classList.value.includes("btn-outline"))
+            btn.classList.add("btn-outline");
+    });
+    clickedBtn && clickedBtn.classList.remove("btn-outline");
+};
+
+const loadProducts = async (category = "", clickedBtn) => {
+    showActiveCategory(clickedBtn);
     let url;
     if (!category) url = "https://fakestoreapi.com/products";
     else url = `https://fakestoreapi.com/products/category/${category}`;
-    console.log(url);
     const res = await fetch(url);
     const data = await res.json();
     showProducts(data);
