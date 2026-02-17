@@ -42,6 +42,7 @@ const loadProducts = async (category = "", clickedBtn) => {
     productsContainer.innerHTML = "";
     if (skeletonContainer) skeletonContainer.classList.remove("hidden");
     showActiveCategory(clickedBtn);
+    // load data
     let url;
     if (!category) url = "https://fakestoreapi.com/products";
     else url = `https://fakestoreapi.com/products/category/${category}`;
@@ -50,7 +51,8 @@ const loadProducts = async (category = "", clickedBtn) => {
     if (skeletonContainer) skeletonContainer.classList.add("hidden");
     showProducts(data);
 };
-loadProducts();
+// load all product for products page only
+if (location.pathname.includes("products.html")) loadProducts();
 
 const showProducts = (products = []) => {
     products.forEach((product) => {
@@ -91,6 +93,20 @@ const showProducts = (products = []) => {
         productsContainer.appendChild(productDiv);
     });
 };
+
+const loadTrendingProducts = async () => {
+    skeletonContainer.classList.remove("hidden");
+    const url = "https://fakestoreapi.com/products";
+    const res = await fetch(url);
+    const data = await res.json();
+    const productSorted = Array.isArray(data)
+        ? data.sort((p1, p2) => p1.rating.rate - p2.rating.rate).reverse()
+        : [];
+    skeletonContainer.classList.add("hidden");
+    showProducts(productSorted.slice(0, 3));
+};
+if (location.pathname.includes("index.html") || location.pathname === "/")
+    loadTrendingProducts();
 
 const loadSkeleton = () => {
     if (skeletonContainer) {

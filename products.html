@@ -106,7 +106,7 @@
                 <!-- categories -->
                 <div
                     id="categories"
-                    class="flex mx-auto my-8 w-max gap-2"
+                    class="flex mx-auto my-8 max-w-11/12 md:w-max gap-2 flex-wrap justify-center"
                 ></div>
             </section>
             <!-- products -->
@@ -115,13 +115,13 @@
                     id="products"
                     class="grid grid-cols-1 md:grid-cols-4 my-8 gap-4"
                 ></div>
-                <!-- skeleton start -->
-                <section
-                    class="col-span-full grid grid-cols-4 my-8 gap-4"
-                    id="skeleton"
-                ></section>
-                <!-- skeleton end -->
             </section>
+            <!-- skeleton start -->
+            <section
+                class="col-span-full grid grid-cols-1 md:grid-cols-4 my-8 gap-4 max-w-7xl mx-auto hidden"
+                id="skeleton"
+            ></section>
+            <!-- skeleton end -->
         </main>
         <!-- footer -->
 
