@@ -11,6 +11,7 @@ loadCategories();
 
 const showCategories = (categories = []) => {
     const categoriesContainer = document.getElementById("categories");
+    if (!categoriesContainer) return;
     categoriesContainer.innerHTML = `<button onclick="loadProducts('', this)" class="capitalize rounded-full btn btn-primary category-btn">all</button>`;
     categories.forEach((category = "") => {
         const categoryBtn = document.createElement("button");
@@ -37,6 +38,7 @@ const showActiveCategory = (clickedBtn = null) => {
 };
 
 const loadProducts = async (category = "", clickedBtn) => {
+    if (!productsContainer) return;
     productsContainer.innerHTML = "";
     if (skeletonContainer) skeletonContainer.classList.remove("hidden");
     showActiveCategory(clickedBtn);
