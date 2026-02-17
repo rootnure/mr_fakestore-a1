@@ -1,14 +1,40 @@
-const loadAllProduct = async () => {
-    const url = "https://fakestoreapi.com/products";
+const loadCategories = async () => {
+    const url = "https://fakestoreapi.com/products/categories";
+    const res = await fetch(url);
+    const data = await res.json();
+    showCategories(data);
+};
+loadCategories();
+
+const showCategories = (categories = []) => {
+    const categoriesContainer = document.getElementById("categories");
+    categoriesContainer.innerHTML = `<button onclick=loadProducts() class="capitalize rounded-full btn btn-primary">all</button>`;
+    categories.forEach((category = "") => {
+        const categoryBtn = document.createElement("button");
+        categoryBtn.setAttribute("onclick", `loadProducts("${category}")`);
+        categoryBtn.setAttribute(
+            "class",
+            "capitalize rounded-full btn btn-outline btn-primary",
+        );
+        categoryBtn.innerText = category;
+        categoriesContainer.appendChild(categoryBtn);
+    });
+};
+
+const loadProducts = async (category = "") => {
+    let url;
+    if (!category) url = "https://fakestoreapi.com/products";
+    else url = `https://fakestoreapi.com/products/category/${category}`;
+    console.log(url);
     const res = await fetch(url);
     const data = await res.json();
     showProducts(data);
 };
-loadAllProduct();
+loadProducts();
 
 const showProducts = (products = []) => {
     const productsContainer = document.getElementById("products");
-    // console.log(productsContainer);
+    productsContainer.innerHTML = "";
     products.forEach((product) => {
         const { id, title, price, description, category, image, rating } =
             product || {};
