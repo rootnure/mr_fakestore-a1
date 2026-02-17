@@ -1,5 +1,6 @@
 const skeletonContainer = document.getElementById("skeleton");
 const productsContainer = document.getElementById("products");
+if (skeletonContainer) skeletonContainer.classList.add("hidden");
 
 const loadCategories = async () => {
     const url = "https://fakestoreapi.com/products/categories";
@@ -7,7 +8,7 @@ const loadCategories = async () => {
     const data = await res.json();
     showCategories(data);
 };
-loadCategories();
+if (location.pathname.includes("products")) loadCategories();
 
 const showCategories = (categories = []) => {
     const categoriesContainer = document.getElementById("categories");
@@ -52,7 +53,7 @@ const loadProducts = async (category = "", clickedBtn) => {
     showProducts(data);
 };
 // load all product for products page only
-if (location.pathname.includes("products.html")) loadProducts();
+if (location.pathname.includes("products")) loadProducts();
 
 const showProducts = (products = []) => {
     products.forEach((product) => {
@@ -76,9 +77,11 @@ const showProducts = (products = []) => {
                         </span>
                     </div>
                 </div>
-                <h2 class="card-title pt-4">${title.length > 25 ? title.slice(0, 24) + "..." : title}</h2>
+                <h2 class="card-title pt-4" title="${title}">
+                    ${title.length > 25 ? title.slice(0, 24) + "..." : title}
+                </h2>
                 <div>
-                    <p class="font-bold text-xl">$${price}</p>
+                    <p class="font-bold text-xl">$${price.toFixed(2)}</p>
                 </div>
                 <div class="card-actions justify-between">
                     <button class="btn btn-outline flex-1 rounded-lg shadow-md border-2 border-gray-200 text-gray-500">
@@ -105,7 +108,7 @@ const loadTrendingProducts = async () => {
     skeletonContainer.classList.add("hidden");
     showProducts(productSorted.slice(0, 3));
 };
-if (location.pathname.includes("index.html") || location.pathname === "/")
+if (location.pathname.includes("index") || location.pathname === "/")
     loadTrendingProducts();
 
 const loadSkeleton = () => {
